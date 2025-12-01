@@ -39,7 +39,7 @@ class RenderForm extends Controller
             ->where('published', true)
             ->firstOrFail();
 
-        // Build sections like show()
+      
         $sections = [];
         foreach ($form->schema ?? [] as $block) {
             if (($block['type'] ?? null) === 'section') {
@@ -52,7 +52,6 @@ class RenderForm extends Controller
 
         $rules = [];
 
-        // Dynamic validation rules
         foreach ($sections as $section) {
             foreach ($section['fields'] ?? [] as $field) {
 
@@ -80,7 +79,7 @@ class RenderForm extends Controller
                         $rules[$name] = [
                             $required ? 'required' : 'nullable',
                             'file',
-                            'max:20480', // 20 MB
+                            'max:8192', 
                             'mimetypes:'.
                                 'image/jpeg,image/png,image/webp,'.
                                 'application/pdf,'.
@@ -95,10 +94,10 @@ class RenderForm extends Controller
             }
         }
 
-        // Validate request
+      
         $validated = $request->validate($rules);
 
-        // Handle file uploads safely
+       
         foreach ($sections as $section) {
             foreach ($section['fields'] ?? [] as $field) {
 
@@ -108,10 +107,10 @@ class RenderForm extends Controller
 
                     $file = $request->file($name);
 
-                    // Sanitize and make filename unique
+                   
                     $filename = uniqid().'_'.preg_replace('/[^A-Za-z0-9\-\_\.]/', '', $file->getClientOriginalName());
 
-                    // Save to public/uploads/forms/{form_id}/
+                    
                     $directory = public_path("uploads/forms/{$form->id}");
                     if (! is_dir($directory)) {
                         mkdir($directory, 0755, true);
@@ -119,13 +118,13 @@ class RenderForm extends Controller
 
                     $file->move($directory, $filename);
 
-                    // Save relative path in DB
+                    
                     $validated[$name] = "uploads/forms/{$form->id}/{$filename}";
                 }
             }
         }
 
-        // Save results
+      
         $form->results()->create([
             'data' => $validated,
             'tenant_id' => $form->tenant_id,
