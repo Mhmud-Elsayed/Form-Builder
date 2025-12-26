@@ -1,59 +1,217 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🧩 Form Builder – Multi-Tenant SaaS (Laravel + Filament)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simplified multi-tenant Form Builder SaaS (similar to Google Forms) built using Laravel and Filament.
 
-## About Laravel
+This project demonstrates skills in:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Multi-Tenancy Architecture
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Database Design
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Dynamic Form Builder Logic
 
-## Learning Laravel
+Filament Admin Customization
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+Public Form Rendering
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Team Management & Roles
 
-## Laravel Sponsors
+Data Collection & Results Visualization
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+🔗 Live Demo:
+👉 https://formk.mhmud.com
 
-### Premium Partners
+🎯 Project Objective
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Build a scalable, tenant-based system where each company (tenant) can:
 
-## Contributing
+Create dynamic forms
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Share public form links
 
-## Code of Conduct
+Collect submissions
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Manage team members
 
-## Security Vulnerabilities
+View and analyze results
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Each tenant is fully isolated from others.
 
-## License
+🏗️ Architecture Overview
+🧠 Multi-Tenant Strategy
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+A single database with tenant_id applied to all tenant-related models.
+
+Each user belongs to one tenant
+
+All forms, fields, and submissions are tenant-scoped
+
+Team members only see their tenant’s data
+
+No heavy tenancy packages were used — simple and clean architecture.
+
+📝 Core Features
+1️⃣ Authentication & Tenant Registration
+
+Public registration page
+
+On registration:
+
+User is created
+
+Tenant (workspace) is automatically created
+
+User becomes Owner
+
+Login handled via standard Laravel auth
+
+2️⃣ Form Builder
+
+A minimal but powerful form builder implemented using Filament.
+
+🔹 Supported Field Types
+
+Text
+
+Number
+
+Long Text
+
+Dropdown
+
+Checkbox
+
+File Upload
+
+Date
+
+🔹 Form Capabilities
+
+Create & edit forms
+
+Add fields dynamically
+
+Reorder fields (drag & drop / arrows)
+
+Group fields into Sections
+
+Configure field properties:
+
+Title
+
+Placeholder / Hint
+
+Required (true / false)
+
+Dropdown options
+
+Save as Draft
+
+Publish form → generate public URL
+
+Built using Filament Builder / Repeater components.
+
+3️⃣ Public Form Rendering
+
+Published forms are accessible via public link
+
+No authentication required
+
+Fields render exactly as configured
+
+Supports:
+
+Required validation
+
+File uploads
+
+Submissions are saved securely in the database
+
+4️⃣ Form Submissions & Results Viewer
+
+Inside the Filament dashboard:
+
+Each form has a Results Page
+
+Submissions displayed in a table:
+
+Columns = Form fields
+
+Rows = Submissions
+
+Similar to Excel-style view
+
+Fully tenant-scoped data
+
+📌 (CSV export can be added easily if needed)
+
+5️⃣ Team Management & Roles
+
+Tenant owner can manage team members.
+
+👥 Roles
+Role	Permissions
+Owner	Full access
+Staff	Create forms & view results
+Features
+
+Add team members (name, email, role)
+
+Team members login normally
+
+Role-based access enforced
+
+Staff cannot delete tenant or users
+
+🗄️ Database Design (Simplified)
+Tenants
+
+
+Users
+
+
+Forms
+
+
+form Results
+
+🧰 Tech Stack
+
+Laravel
+
+Filament Admin Panel
+
+MySQL
+
+Blade
+
+Laravel Storage (File Uploads)
+
+🔐 Security Notes
+
+Tenant isolation enforced at query level
+
+Public forms are read-only
+
+Submissions validated server-side
+
+Role-based access control
+
+🚀 Ideal Use Cases
+
+Internal company surveys
+
+Client feedback forms
+
+HR forms
+
+Lead collection
+
+MVP SaaS form builder
+
+👨‍💻 Author
+
+Mahmoud Elsayed
+Backend Developer – Laravel
+
+🔗 Demo: https://formk.mhmud.com
